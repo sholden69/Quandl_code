@@ -1,4 +1,6 @@
 import quandl
+import matplotlib.pyplot as plt
+
 
 quandl.read_key("../.quandl_apikey")
 print(quandl.ApiConfig.api_key)
