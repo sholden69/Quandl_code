@@ -1,8 +1,7 @@
 import quandl
-quandl.ApiConfig.api_key = "TkzGdrC6nswPnuxzfzPZ"
-# quandl.save_key("supersecret")
-print(quandl.ApiConfig.api_key)
 
+quandl.read_key("../.quandl_apikey")
+print(quandl.ApiConfig.api_key)
 
 
 # API call to list all the tickers in the WIKI dataset
@@ -13,7 +12,7 @@ print(quandl.ApiConfig.api_key)
 
 print("------------------------------------------------------------------")
 # Source MS, GS, BAC stock prices for the last 20 years
-data2 = quandl.get_table('WIKI/PRICES', ticker = ['MS','GS','JMC','BAC'],
+data2 = quandl.get_table('WIKI/PRICES', ticker = ['MS','GS','JPM','BAC'],
                         qopts = { 'columns': ['ticker', 'date', 'adj_close'] },
                         date = { 'gte': '2000-01-01', 'lte': '2020-01-10' },
                         paginate=True)
@@ -24,6 +23,8 @@ new = data2.set_index('date')
 
 # use pandas pivot function to sort adj_close by tickers
 clean_data = new.pivot(columns='ticker')
+clean_data.info()
 
 # check the head of the output
 print(clean_data)
+
