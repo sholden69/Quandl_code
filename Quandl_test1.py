@@ -1,12 +1,17 @@
 import quandl
+import numpy as np
 import matplotlib.pyplot as plt
+import pandas as pd
 
 
+# Read my quandl API key
 quandl.read_key("../.quandl_apikey")
 print(quandl.ApiConfig.api_key)
 
+#input data
+bank_tickers=['MS','GS','JPM','BAC']
 
-# API call to list all the tickers in the WIKI dataset
+# API call to list all the tickers in the WIKI dataset - looks like it might be deprecated
 # https://www.quandl.com/api/v3/databases/WIKI/metadata?api_key=TkzGdrC6nswPnuxzfzPZ
 
 #data1 = quandl.get("WIKI/KO", trim_start = "2000-12-12", trim_end = "2020-01-10", ticker=['MS'],authtoken="TkzGdrC6nswPnuxzfzPZ")
@@ -14,7 +19,7 @@ print(quandl.ApiConfig.api_key)
 
 print("------------------------------------------------------------------")
 # Source MS, GS, BAC stock prices for the last 20 years
-data2 = quandl.get_table('WIKI/PRICES', ticker = ['MS','GS','JPM','BAC'],
+data2 = quandl.get_table('WIKI/PRICES', ticker = bank_tickers,
                         qopts = { 'columns': ['ticker', 'date', 'adj_close'] },
                         date = { 'gte': '2000-01-01', 'lte': '2020-01-10' },
                         paginate=True)
